@@ -9,10 +9,10 @@ language
 
 description
 	original_author = <
+		["date"] = <"2020-04-16">
 		["name"] = <"Silje Ljosland Bakke">
 		["organisation"] = <"Helse Vest IKT AS">
 		["email"] = <"silje.ljosland.bakke@helse-vest-ikt.no">
-		["date"] = <"2020-04-16">
 	>
 	lifecycle_state = <"unmanaged">
 	details = <
@@ -26,7 +26,7 @@ description
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"f7d8871e03aed7689c4f960de78309a3">
+		["MD5-CAM-1.0.1"] = <"feebf55e6227bb85a6969e72d892f6f6">
 		["build_uid"] = <"4e334401-82a7-362c-8202-ed0c466962fc">
 	>
 
@@ -37,7 +37,20 @@ definition
 				events cardinality matches {0..*; unordered} matches {
 					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {*}    -- Tree
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- DV_QUANTITY
+										value matches {
+											DV_QUANTITY matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- DV_CODED_TEXT
+										value matches {
+											DV_CODED_TEXT matches {*}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
@@ -64,6 +77,14 @@ ontology
 				["at0003"] = <
 					text = <"Tree">
 					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"DV_QUANTITY">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"DV_CODED_TEXT">
+					description = <"*">
 				>
 			>
 		>
